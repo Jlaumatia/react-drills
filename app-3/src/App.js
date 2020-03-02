@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class List extends Component {
+  constructor() {
+    super();
+    this.state = {
+    stringFilter: '',
+    foodie: ["Chicken", "Sushi", "Pork Chops", "Steak", "Rib", "Salmon"]
+    };
+    
+
+  };
+
+  newList(filter) {
+    this.setState({stringFilter: filter});
+  }
+
+  render() {
+    let foodList = this.state.foodie
+    .filter((element,index) => {
+      return element.includes(this.state.stringFilter);
+    })
+    .map((element,index) => {
+      return <h2 key={index}>{element}</h2>;
+    });
+    
+    
+    return (
+      <div className="List">
+        <input onChange={e => this.newList(e.target.value)} type="text"/>
+        {foodList}
+      </div>
+
+    );
+  }
 }
 
-export default App;
+export default List;
